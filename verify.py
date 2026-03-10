@@ -17,6 +17,14 @@ def verify_html(filepath):
     h1 = header.find('h1')
     assert h1 and h1.text == "Pastrama", "Missing or incorrect <h1>"
 
+    # Check Story Section
+    story = soup.find(id="about")
+    assert story is not None, "Missing section with id='about'"
+    assert "Tenderism" in story.text, "Story section does not contain #Tenderism"
+
+    images = story.find_all('img')
+    assert len(images) == 3, "Story section should have exactly 3 images"
+
     # Check Overview Section
     overview = soup.find(id="overview")
     assert overview is not None, "Missing section with id='overview'"
@@ -26,7 +34,7 @@ def verify_html(filepath):
     # Check Menu Section
     menu = soup.find(id="menu")
     assert menu is not None, "Missing section with id='menu'"
-    menu_items = ["BBQ Chicken Wings", "Virgin Mojito", "Pastrami"]
+    menu_items = ["BBQ Chicken Wings", "Virgin Mojito", "Pastrama Sandwich", "Ribeye Barbecue"]
     for item in menu_items:
         assert item in menu.text, f"Menu item '{item}' not found"
 
